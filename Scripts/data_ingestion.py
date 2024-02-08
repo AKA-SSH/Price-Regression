@@ -9,6 +9,7 @@ from Scripts.feature_engineering import FeatureEngineering
 from Scripts.encoding import Encoding
 from Scripts.manipulation import DataManipulation
 from Scripts.model_training import ModelTrainer
+from Scripts.model_evaluation import EvaluateModel
 
 class DataIngestion:
     def __init__(self) -> None:
@@ -77,3 +78,8 @@ if __name__ == '__main__':
     training_object.train_model(train_features_file_path='artifacts\\train-features.pkl',
                                 train_target_file_path='artifacts\\train-target.pkl')
     
+    # Model Evaluation
+    logging.info('Evaluating trained model...')
+    model_evaluation_object= EvaluateModel()
+    message= model_evaluation_object.model_evaluation(test_features_file_path='artifacts\\test-features.pkl', test_target_file_path='artifacts\\test-target.pkl', model_file_path='artifacts\\model.pkl')
+    print(message)
