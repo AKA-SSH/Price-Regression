@@ -33,7 +33,7 @@ class Encoding:
             logging.info('Encoding completed')
             
             logging.info('Saving encoded dataFrame and encoder object')
-            pickle_file(object=LE, file_name='label_encoder.pkl')
+            pickle_file(object=LE, file_name='label-encoder.pkl')
             pickle_file(object=dataframe, file_name='dataframe.pkl')
 
         except Exception as CE:
