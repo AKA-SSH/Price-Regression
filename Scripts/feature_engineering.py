@@ -41,6 +41,11 @@ class FeatureEngineering:
             logging.info('Creating estimatedRevenue')
             dataframe.loc[:, 'estimatedRevenue'] = dataframe['price'] * dataframe['estimatedSaleCount']
             dataframe = dataframe.drop('estimatedSaleCount', axis=1)
+
+            logging.info('Creating priceOptimality')
+            bin_edges = [0, 10, 100, 1000, 10_000, 100_000, float('inf')]
+            bin_labels = [0, 1, 2, 3, 4, 5]
+            dataframe['priceOptimality'] = pd.cut(dataframe.reviews, bins= bin_edges, labels= bin_labels, right=False)
             
             logging.info('Saving DataFrame with engineered features')
             pickle_file(object=dataframe, file_name='dataframe.pkl')
