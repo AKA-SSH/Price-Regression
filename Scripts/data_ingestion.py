@@ -4,10 +4,10 @@ import pandas as pd
 from utils.logger import logging
 from utils.exception import CustomException
 from utils.pickle_file import pickle_file
-from utils.unpickle_file import unpickle_file
 
 from Scripts.feature_engineering import FeatureEngineering
 from Scripts.encoding import Encoding
+from Scripts.manipulation import DataManipulation
 
 class DataIngestion:
     def __init__(self) -> None:
@@ -63,3 +63,9 @@ if __name__ == '__main__':
     logging.info('Performing encoding...')
     encoding_object= Encoding()
     encoding_object.encode('artifacts\\dataframe.pkl')
+
+    # Data Manipulation
+    logging.info('Performing data manipulation...')
+    manipulation_object = DataManipulation(encoded_dataframe_file_path='artifacts\\dataframe.pkl')
+    manipulation_object.data_transformation()
+    manipulation_object.data_scaling()
