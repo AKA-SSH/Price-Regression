@@ -7,6 +7,7 @@ from utils.pickle_file import pickle_file
 from utils.unpickle_file import unpickle_file
 
 from Scripts.feature_engineering import FeatureEngineering
+from Scripts.encoding import Encoding
 
 class DataIngestion:
     def __init__(self) -> None:
@@ -40,7 +41,7 @@ class DataIngestion:
             logging.info('Data ingestion completed')
 
             logging.info('Saving features and target data')
-            pickle_file(object=dataframe, file_name='cleaned_dataframe.pkl')
+            pickle_file(object=dataframe, file_name='dataframe.pkl')
             logging.info('Contents saved')
 
         except Exception as CE:
@@ -49,11 +50,16 @@ class DataIngestion:
 
 if __name__ == '__main__':
     # Data ingestion
-    logging.info('Loading raw data...')
+    logging.info('Performing data ingestion...')
     data_ingestion_object = DataIngestion()
     data_ingestion_object.data_ingestion()
     
     # Feature Engineering
     logging.info('Performing feature engineering...')
     feature_engineering_object = FeatureEngineering()
-    feature_engineering_object.engineer_feature('artifacts\\cleaned_dataframe.pkl')
+    feature_engineering_object.engineer_feature('artifacts\\dataframe.pkl')
+
+    # Encoding
+    logging.info('Performing encoding...')
+    encoding_object= Encoding()
+    encoding_object.encode('artifacts\\dataframe.pkl')
