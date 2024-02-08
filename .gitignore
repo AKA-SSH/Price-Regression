@@ -120,7 +120,7 @@ celerybeat.pid
 *.sage.py
 
 # Data Folders
-notebook_artifacts/
+catboost_info/
 artifacts/
 Data/
 
