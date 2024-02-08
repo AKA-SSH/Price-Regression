@@ -33,8 +33,9 @@ class Encoding:
 
             logging.info('Encoding completed')
             
-            logging.info('Saving encoded DataFrame')
-            pickle_file(object=dataframe, file_name='encoded_dataframe.pkl')
+            logging.info('Saving encoded dataFrame and encoder object')
+            pickle_file(object=LE, file_name='label_encoder.pkl')
+            pickle_file(object=dataframe, file_name='dataframe.pkl')
 
         except Exception as CE:
             logging.error(f'Error during data preprocessing: {str(CE)}', exc_info=True)
