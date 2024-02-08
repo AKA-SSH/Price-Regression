@@ -14,5 +14,7 @@ catboost
 lightgbm
 scikit-learn
 optuna
+# deployment
+streamlit
 # editable installation in current directory
 -e .
