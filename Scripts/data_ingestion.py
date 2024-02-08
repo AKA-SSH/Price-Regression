@@ -4,6 +4,9 @@ import pandas as pd
 from utils.logger import logging
 from utils.exception import CustomException
 from utils.pickle_file import pickle_file
+from utils.unpickle_file import unpickle_file
+
+from Scripts.feature_engineering import FeatureEngineering
 
 class DataIngestion:
     def __init__(self) -> None:
@@ -19,30 +22,25 @@ class DataIngestion:
         Raises:
         - CustomException: If an error occurs during the data ingestion process.
 
-        Returns:
-        - tuple: A tuple containing the cleaned features and target data.
-
         Example Usage:
         ```python
         data_ingestion_object = DataIngestion()
-        data_ingestion_object.data_ingestion(raw_data_file_path='path/to/raw_data.csv')
+        data_ingestion_object.data_ingestion(raw_data_file_path='Data\\raw_data.csv')
         ```
         """
         try:
             logging.info('Data ingestion initiated')
 
             logging.info(f'Loading raw data from {raw_data_file_path}')
-            raw_dataframe = pd.read_csv(raw_data_file_path, low_memory=False)
-            selected_columns= ['stars', 'reviews', 'price', 'category', 'isBestSeller', 'boughtInLastMonth']
-            dataframe= raw_dataframe[selected_columns].copy()
+            raw_dataframe = pd.read_csv(raw_data_file_path)
 
-            features, target= dataframe.drop('price', axis=1), dataframe['price']
+            selected_columns = ['stars', 'reviews', 'price', 'category', 'isBestSeller', 'boughtInLastMonth']
+            dataframe = raw_dataframe[selected_columns].copy()
 
             logging.info('Data ingestion completed')
 
             logging.info('Saving features and target data')
-            pickle_file(object=features, file_name='features.pkl')
-            pickle_file(object=target, file_name='target.pkl')
+            pickle_file(object=dataframe, file_name='cleaned_dataframe.pkl')
             logging.info('Contents saved')
 
         except Exception as CE:
@@ -51,5 +49,11 @@ class DataIngestion:
 
 if __name__ == '__main__':
     # Data ingestion
+    logging.info('Loading raw data...')
     data_ingestion_object = DataIngestion()
     data_ingestion_object.data_ingestion()
+    
+    # Feature Engineering
+    logging.info('Performing feature engineering...')
+    feature_engineering_object = FeatureEngineering()
+    feature_engineering_object.engineer_feature('artifacts\\cleaned_dataframe.pkl')
