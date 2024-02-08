@@ -66,7 +66,3 @@ def data_processing():
         b64_processed = base64.b64encode(csv_file_processed.encode()).decode()
         href_processed = f'<a href="data:file/csv;base64,{b64_processed}" download="processed_data.csv">Download Processed Data CSV File</a>'
         st.markdown(href_processed, unsafe_allow_html=True)
-
-# Run the Streamlit app
-if __name__ == "__main__":
-    data_processing()
