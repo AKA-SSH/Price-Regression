@@ -125,8 +125,6 @@ notebook_artifacts/
 artifacts/
 Data/
 
-# Pickle Files
-*.pkl
 
 # Environments
 .env
