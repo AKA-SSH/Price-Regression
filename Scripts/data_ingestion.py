@@ -8,6 +8,7 @@ from utils.pickle_file import pickle_file
 from Scripts.feature_engineering import FeatureEngineering
 from Scripts.encoding import Encoding
 from Scripts.manipulation import DataManipulation
+from Scripts.model_training import ModelTrainer
 
 class DataIngestion:
     def __init__(self) -> None:
@@ -57,15 +58,22 @@ if __name__ == '__main__':
     # Feature Engineering
     logging.info('Performing feature engineering...')
     feature_engineering_object = FeatureEngineering()
-    feature_engineering_object.engineer_feature('artifacts\\dataframe.pkl')
+    feature_engineering_object.engineer_feature(cleaned_dataframe_file_path='artifacts\\dataframe.pkl')
 
     # Encoding
     logging.info('Performing encoding...')
-    encoding_object= Encoding()
-    encoding_object.encode('artifacts\\dataframe.pkl')
+    encoding_object = Encoding()
+    encoding_object.encode(engineered_dataframe_file_path='artifacts\\dataframe.pkl')
 
     # Data Manipulation
     logging.info('Performing data manipulation...')
     manipulation_object = DataManipulation(encoded_dataframe_file_path='artifacts\\dataframe.pkl')
     manipulation_object.data_transformation()
     manipulation_object.data_scaling()
+
+    # Model Training
+    logging.info('Performing model training...')
+    training_object = ModelTrainer()
+    training_object.train_model(train_features_file_path='artifacts\\train-features.pkl',
+                                train_target_file_path='artifacts\\train-target.pkl')
+    
