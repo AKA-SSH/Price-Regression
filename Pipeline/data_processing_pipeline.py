@@ -36,7 +36,7 @@ def data_manipulation(cleaned_data):
     scaled_features = MM.fit_transform(transfomed_features)
     features = pd.DataFrame(data=scaled_features, index=features.index, columns=features.columns)
 
-    return (features, target)
+    return pd.concat([features, target], axis=1)  # Combine features and target into a single DataFrame
 
 def data_processing():
     st.title('Data Processing App')
@@ -50,29 +50,23 @@ def data_processing():
         cleaned_data = clean_raw_data(uploaded_file)
         
         # Perform data manipulation
-        processed_features, processed_target = data_manipulation(cleaned_data)
+        processed_data = data_manipulation(cleaned_data)
         
         processing_spinner.text("Data processed successfully!")
-        
-        # Combine features and target into a single DataFrame
-        processed_data = pd.concat([processed_features, processed_target], axis=1)
         
         # Display processed data
         st.subheader('Processed Data')
         st.write('Combined Features and Target:')
         st.write(processed_data.head())
         
-        # Download links for features and target
+        # Download link for processed data
         st.subheader('Download Processed Data')
         
-        # Features download link
-        csv_file_features = processed_features.to_csv(index=False)
-        b64_features = base64.b64encode(csv_file_features.encode()).decode()
-        href_features = f'<a href="data:file/csv;base64,{b64_features}" download="processed_features.csv">Download Processed Features CSV File</a>'
-        st.markdown(href_features, unsafe_allow_html=True)
-        
-        # Target download link
-        csv_file_target = processed_target.to_csv(index=False, header=True)
-        b64_target = base64.b64encode(csv_file_target.encode()).decode()
-        href_target = f'<a href="data:file/csv;base64,{b64_target}" download="processed_target.csv">Download Processed Target CSV File</a>'
-        st.markdown(href_target, unsafe_allow_html=True)
+        csv_file_processed = processed_data.to_csv(index=False)
+        b64_processed = base64.b64encode(csv_file_processed.encode()).decode()
+        href_processed = f'<a href="data:file/csv;base64,{b64_processed}" download="processed_data.csv">Download Processed Data CSV File</a>'
+        st.markdown(href_processed, unsafe_allow_html=True)
+
+# Run the Streamlit app
+if __name__ == "__main__":
+    data_processing()
