@@ -47,7 +47,3 @@ def get_model_download_link(model, filename="trained_model.pkl"):
     model_binary = base64.b64encode(pickle.dumps(model)).decode()
     href = f'<a href="data:application/octet-stream;base64,{model_binary}" download="{filename}">Download Trained Model</a>'
     return href
-
-# Run the Streamlit app
-if __name__ == "__main__":
-    train_catboost()
