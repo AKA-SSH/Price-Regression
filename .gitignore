@@ -121,6 +121,7 @@ celerybeat.pid
 
 # Data Folders
 catboost_info/
+notebook_artifacts/
 artifacts/
 Data/
 
