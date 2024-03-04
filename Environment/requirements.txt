@@ -15,6 +15,7 @@ lightgbm
 scikit-learn
 optuna
 # deployment
+flask
 streamlit
 # editable installation in current directory
 -e .
