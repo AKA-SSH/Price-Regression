@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Preprocessing</title>
+</head>
+<body>
+    <a href="/">Home</a> <!-- Home button -->
+    <h1>Data Preprocessing App</h1>
+    <form action="/process_data" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv,.xls,.xlsx">
+        <input type="submit" value="Process Data">
+    </form>
+    
+    <!-- Display preprocessed data -->
+    {% if processed_data %}
+        <!-- Download link for preprocessed data -->
+        <h2>Download Preprocessed Data</h2>
+        <a href="/download_processed_data" download="processed_data.csv">Download Preprocessed Data (Full)</a>
+        
+        <br><br>
+        
+        <!-- Display preprocessed data table -->
+        <h2>Preprocessed Data (First 5 rows)</h2>
+        {{ processed_data|safe }}  <!-- Display only the first 5 rows -->
+    {% endif %}
+</body>
+</html>

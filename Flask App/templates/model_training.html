@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Training</title>
+</head>
+<body>
+    <a href="/">Home</a> <!-- Home button -->
+    <h1>CatBoost Model Training App</h1>
+    <form action="/train_model" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv,.xls,.xlsx">
+        <input type="submit" value="Train Model">
+    </form>
+</body>
+</html>
