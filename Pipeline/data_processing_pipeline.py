@@ -1,7 +1,6 @@
 import os
 import base64
 import pandas as pd
-import streamlit as st
 from utils.unpickle_file import unpickle_file
 
 label_encoder_file_path = os.path.join('artifacts', 'label-encoder.pkl')
@@ -38,31 +37,11 @@ def data_manipulation(cleaned_data):
 
     return pd.concat([features, target], axis=1)  # Combine features and target into a single DataFrame
 
-def data_processing():
-    st.title('Data Processing App')
-    uploaded_file = st.file_uploader("Upload a CSV file", type=["csv", "xls", "xlsx"])
-
-    if uploaded_file is not None:
-        processing_spinner = st.empty()
-        processing_spinner.text("Processing uploaded data...")
-        
-        # Clean the uploaded data
-        cleaned_data = clean_raw_data(uploaded_file)
-        
-        # Perform data manipulation
-        processed_data = data_manipulation(cleaned_data)
-        
-        processing_spinner.text("Data processed successfully!")
-        
-        # Display processed data
-        st.subheader('Processed Data')
-        st.write('Combined Features and Target:')
-        st.write(processed_data.head())
-        
-        # Download link for processed data
-        st.subheader('Download Processed Data')
-        
-        csv_file_processed = processed_data.to_csv(index=False)
-        b64_processed = base64.b64encode(csv_file_processed.encode()).decode()
-        href_processed = f'<a href="data:file/csv;base64,{b64_processed}" download="processed_data.csv">Download Processed Data CSV File</a>'
-        st.markdown(href_processed, unsafe_allow_html=True)
+def data_processing(uploaded_file):
+    # Clean the uploaded data
+    cleaned_data = clean_raw_data(uploaded_file)
+    
+    # Perform data manipulation
+    processed_data = data_manipulation(cleaned_data)
+    
+    return processed_data
